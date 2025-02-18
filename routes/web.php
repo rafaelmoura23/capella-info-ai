@@ -21,3 +21,12 @@ Route::middleware('auth')->group(function () {
         return view('profile');
     })->name('profile');
 });
+
+use App\Http\Controllers\SaintOfTheDayController;
+
+Route::middleware('auth')->group(function () {
+    Route::get('/saints', [SaintOfTheDayController::class, 'index'])->name('saints.index');
+    Route::post('/saints', [SaintOfTheDayController::class, 'store'])->name('saints.store');
+    Route::get('/dashboard', [SaintOfTheDayController::class, 'showSaintOfTheDay'])->name('dashboard');
+    Route::get('/santos/{id}', [SaintOfTheDayController::class, 'show'])->name('santos.show');
+});
