@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SaintOfTheDayController;
+use App\Http\Controllers\ChatRAGController;
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -22,11 +24,19 @@ Route::middleware('auth')->group(function () {
     })->name('profile');
 });
 
-use App\Http\Controllers\SaintOfTheDayController;
 
+// Santos - Popup
 Route::middleware('auth')->group(function () {
     Route::get('/saints', [SaintOfTheDayController::class, 'index'])->name('saints.index');
     Route::post('/saints', [SaintOfTheDayController::class, 'store'])->name('saints.store');
     Route::get('/dashboard', [SaintOfTheDayController::class, 'showSaintOfTheDay'])->name('dashboard');
     Route::get('/santos/{id}', [SaintOfTheDayController::class, 'show'])->name('santos.show');
+});
+
+
+// Chat RAG | Langchain
+Route::middleware('auth')->group(function () {
+    Route::get('/chat-rag', [ChatRAGController::class, 'index'])->name('chat_rag.index');
+    Route::post('/chat-rag/upload', [ChatRAGController::class, 'upload'])->name('chat_rag.upload');
+    Route::post('/chat-rag/ask', [ChatRAGController::class, 'ask'])->name('chat_rag.ask');
 });
