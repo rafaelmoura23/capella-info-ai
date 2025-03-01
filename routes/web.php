@@ -4,6 +4,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SaintOfTheDayController;
 use App\Http\Controllers\ChatRAGController;
 
+
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
+
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
