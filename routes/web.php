@@ -39,4 +39,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/chat-rag', [ChatRAGController::class, 'index'])->name('chat_rag.index');
     Route::post('/chat-rag/upload', [ChatRAGController::class, 'upload'])->name('chat_rag.upload');
     Route::post('/chat-rag/ask', [ChatRAGController::class, 'ask'])->name('chat_rag.ask');
+    Route::get('/chat-rag/download/{id}', [ChatRAGController::class, 'download'])->name('chat_rag.download');
+    Route::delete('/chat-rag/delete/{id}', [ChatRAGController::class, 'delete'])->name('chat_rag.delete');
 });
