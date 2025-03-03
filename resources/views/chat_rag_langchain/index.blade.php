@@ -1,31 +1,61 @@
 @extends('layouts.app')
-@section('title', 'Dashboard')
+
+@section('title', 'ChatRag')
+
 @section('content')
+<div class="min-h-screen pt-20"> <!-- Padding-top para evitar sobreposição do header -->
+    <!-- Fundo Estelar -->
+    <div class="star-field">
+        <div class="nebula" style="top: 10%; left: 20%;"></div>
+        <div class="nebula" style="top: 60%; left: 70%;"></div>
+        <script>
+            for (let i = 0; i < 100; i++) {
+                let star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = `${Math.random() * 2 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                document.querySelector('.star-field').appendChild(star);
+            }
+        </script>
+    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.min.js"></script>
+    <!-- Main Content -->
+    <main class="p-8">
+        <div class="max-w-6xl mx-auto">
+            <!-- Header -->
+            <header class="mb-8 text-center" data-aos="fade-up" data-aos-duration="800">
+                <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500" style="font-family: 'Orbitron', sans-serif;">
+                    ChatRag Estelar
+                </h1>
+                <p class="text-sm text-gray-400 mt-2">Converse com a inteligência cósmica e gerencie seus arquivos estelares</p>
+            </header>
 
-    <div class="min-h-screen bg-white">
-        <div class="max-w-8xl mx-auto px-4 py-4">
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
-                <!-- Chat Section (4/5 width) -->
-                <div class="md:col-span-4">
-                    <div class="bg-white rounded-xl shadow-lg border border-gray-200 h-[calc(100vh-6rem)]">
+            <!-- Grid Principal -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- Chat Section (3/4 width) -->
+                <div class="md:col-span-3">
+                    <div class="glass-effect rounded-xl h-[calc(100vh-8rem)] flex flex-col shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                        <!-- Chat Header -->
+                        <div class="p-4 border-b border-gray-700">
+                            <h2 class="text-lg font-semibold text-gray-300" style="font-family: 'Orbitron', sans-serif;">Chat Cósmico</h2>
+                        </div>
+
                         <!-- Chat Messages Container -->
-                        <div class="h-[calc(100%-100px)] overflow-y-auto p-6 custom-scrollbar" id="chat-container">
+                        <div class="flex-1 overflow-y-auto p-6 custom-scrollbar" id="chat-container">
                             <div id="response" class="space-y-6">
-                                <!-- Mensagens armazenadas no banco de dados -->
                                 @foreach ($messages as $message)
                                     <!-- Pergunta do Usuário -->
-                                    <div class="flex justify-end">
-                                        <div
-                                            class="bg-gradient-to-r from-purple-700 to-blue-800 text-white rounded-xl px-6 py-3 max-w-[80%] shadow-md">
+                                    <div class="flex justify-end" data-aos="fade-left" data-aos-delay="200">
+                                        <div class="bg-gradient-to-r from-blue-600 to-purple-700 text-white rounded-lg px-4 py-2 max-w-[70%] shadow-md transform hover:scale-105 transition-all duration-200">
                                             {{ $message->question }}
                                         </div>
                                     </div>
-
                                     <!-- Resposta do Chatbot -->
-                                    <div class="flex justify-start">
-                                        <div class="bg-gray-100 rounded-xl px-6 py-3 max-w-[80%] shadow-md">
+                                    <div class="flex justify-start" data-aos="fade-right" data-aos-delay="300">
+                                        <div class="bg-gray-800/70 text-gray-200 rounded-lg px-4 py-2 max-w-[70%] shadow-md transform hover:scale-105 transition-all duration-200">
                                             {{ $message->response }}
                                         </div>
                                     </div>
@@ -34,19 +64,16 @@
                         </div>
 
                         <!-- Input Area -->
-                        <div class="border-t border-gray-200 p-6 bg-white rounded-b-xl">
-                            <div class="flex space-x-4">
+                        <div class="p-4 border-t border-gray-700">
+                            <div class="flex space-x-3 items-center backdrop-blur-md">
                                 <input type="text" id="question"
-                                    class="flex-1 rounded-xl border border-gray-300 px-6 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent text-base"
-                                    placeholder="Digite sua mensagem...">
+                                    class="flex-1 rounded-full bg-gray-900/50 border border-gray-700 px-6 py-3 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+                                    placeholder="Pergunte ao cosmos...">
                                 <button onclick="askQuestion()"
-                                    class="px-6 py-3 bg-gradient-to-r from-purple-700 to-blue-800 text-white rounded-xl hover:opacity-90 transition-all duration-200 transform hover:scale-105 flex items-center shadow-md">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor">
-                                        <path d="M22 2L11 13" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                        <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" />
+                                    class="px-5 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full hover:shadow-lg hover:scale-105 transition-all duration-200 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M22 2L11 13" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </button>
                             </div>
@@ -54,72 +81,70 @@
                     </div>
                 </div>
 
-                <!-- File Upload Section (1/5 width) -->
-                <div class="md:col-span-1">
-                    <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
-                        <h2 class="text-xl font-semibold mb-6 text-gray-800">Upload de Arquivo</h2>
+                <!-- File Upload Section (1/4 width) -->
+                <div class="md:col-span-1 flex flex-col space-y-6">
+                    <!-- Upload Card -->
+                    <div class="glass-effect rounded-xl p-6 shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                        <h2 class="text-xl font-semibold text-gray-300 mb-4" style="font-family: 'Orbitron', sans-serif;">Upload Estelar</h2>
 
                         @if (session('message'))
-                            <div class="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl shadow-sm">
+                            <div class="mb-4 p-3 bg-green-900/50 border border-green-800 rounded-lg shadow-sm">
                                 <div class="flex items-center">
-                                    <svg class="h-6 w-6 text-green-500 mr-3" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M5 13l4 4L19 7"></path>
+                                    <svg class="h-5 w-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
-                                    <p class="text-green-700 font-medium">{{ session('message') }}</p>
+                                    <p class="text-sm text-green-300">{{ session('message') }}</p>
                                 </div>
                             </div>
                         @endif
 
-                        <form action="{{ route('chat_rag.upload') }}" method="POST" enctype="multipart/form-data"
-                            class="space-y-6" id="upload-form">
+                        <form action="{{ route('chat_rag.upload') }}" method="POST" enctype="multipart/form-data" class="space-y-4" id="upload-form">
                             @csrf
-                            <div class="flex justify-center items-center w-full">
-                                <label
-                                    class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors duration-200">
-                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                        <svg class="w-10 h-10 mb-4 text-gray-500" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
-                                            </path>
+                            <div class="relative">
+                                <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-600 rounded-lg cursor-pointer bg-gray-800/40 hover:bg-gray-800/60 transition-all duration-200">
+                                    <div class="flex flex-col items-center justify-center">
+                                        <svg class="w-8 h-8 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                                         </svg>
-                                        <p class="mb-2 text-sm text-gray-500 font-medium">Clique para upload</p>
-                                        <p class="text-xs text-gray-500">PDF, TXT, DOC (MAX. 10MB)</p>
+                                        <p class="text-xs text-gray-400 font-medium">PDF, TXT, DOC (MAX. 10MB)</p>
                                     </div>
                                     <input type="file" name="file" class="hidden" id="file-input" required>
+                                    <span class="absolute bottom-2 text-xs text-gray-500" id="file-name">Selecione um arquivo</span>
                                 </label>
                             </div>
                             <button type="submit"
-                                class="w-full px-6 py-3 bg-gradient-to-r from-purple-700 to-blue-800 text-white rounded-xl hover:opacity-90 transition-all duration-200 transform hover:scale-105 shadow-md font-medium">
-                                Enviar Arquivo
+                                class="w-full px-5 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full hover:shadow-lg hover:scale-105 transition-all duration-200 text-sm font-medium">
+                                Enviar ao Cosmos
                             </button>
                         </form>
                     </div>
 
-                    <!-- Uploaded Files List -->
-                    <div class="mt-6 bg-white rounded-xl shadow-lg border border-gray-200 p-6">
-                        <h3 class="text-xl font-semibold mb-6 text-gray-800">📂 Seus Arquivos</h3>
+                    <!-- Uploaded Files Card -->
+                    <div class="glass-effect rounded-xl p-6 shadow-lg flex-1" data-aos="fade-up" data-aos-delay="300">
+                        <h3 class="text-xl font-semibold text-gray-300 mb-4" style="font-family: 'Orbitron', sans-serif;">Arquivos em Órbita</h3>
                         @if ($documents->isEmpty())
-                            <p class="text-gray-500">Nenhum arquivo enviado ainda.</p>
+                            <p class="text-sm text-gray-500">Nenhum arquivo em órbita ainda.</p>
                         @else
-                            <ul class="space-y-4">
+                            <ul class="space-y-3 max-h-[calc(100vh-20rem)] overflow-y-auto custom-scrollbar">
                                 @foreach ($documents as $document)
-                                    <li class="flex justify-between items-center bg-gray-100 p-3 rounded-lg shadow-sm">
-                                        <span class="text-gray-800">{{ $document->name }}</span>
-                                        <div class="flex gap-3">
-                                            <!-- Download -->
+                                    <li class="flex justify-between items-center bg-gray-800/50 p-3 rounded-lg shadow-sm hover:bg-gray-800/70 transition-all duration-200">
+                                        <span class="text-sm text-gray-200 truncate max-w-[60%]">{{ $document->name }}</span>
+                                        <div class="flex gap-2">
                                             <a href="{{ route('chat_rag.download', $document->id) }}"
-                                                class="text-blue-600 hover:underline">📥 Baixar</a>
-
-                                            <!-- Delete -->
+                                                class="text-blue-400 hover:text-blue-500 transition-colors">
+                                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v4h16v-4M12 4v12m-6-6l6 6 6-6" />
+                                                </svg>
+                                            </a>
                                             <form action="{{ route('chat_rag.delete', $document->id) }}" method="POST"
                                                 onsubmit="return confirm('Tem certeza que deseja excluir?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:underline">🗑️
-                                                    Excluir</button>
+                                                <button type="submit" class="text-red-400 hover:text-red-500 transition-colors">
+                                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                </button>
                                             </form>
                                         </div>
                                     </li>
@@ -127,177 +152,165 @@
                             </ul>
                         @endif
                     </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
 
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.min.js"></script>
+<script>
+    let isLoading = false;
 
-                    <style>
-                        .custom-scrollbar::-webkit-scrollbar {
-                            width: 8px;
-                        }
+    function askQuestion() {
+        if (isLoading) return;
 
-                        .custom-scrollbar::-webkit-scrollbar-track {
-                            background: #f1f1f1;
-                            border-radius: 4px;
-                        }
+        const question = document.getElementById("question").value;
+        if (!question.trim()) return;
 
-                        .custom-scrollbar::-webkit-scrollbar-thumb {
-                            background: linear-gradient(to bottom, #6b46c1, #1e40af);
-                            border-radius: 4px;
-                        }
+        isLoading = true;
+        const responseDiv = document.getElementById("response");
 
-                        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                            background: linear-gradient(to bottom, #553c9a, #1e3a8a);
-                        }
-
-                        @keyframes gradient-shift {
-                            0% {
-                                background-position: 0% 50%;
-                            }
-
-                            50% {
-                                background-position: 100% 50%;
-                            }
-
-                            100% {
-                                background-position: 0% 50%;
-                            }
-                        }
-
-                        .message-appear {
-                            animation: messageAppear 0.3s ease-out forwards;
-                        }
-
-                        @keyframes messageAppear {
-                            from {
-                                opacity: 0;
-                                transform: translateY(10px);
-                            }
-
-                            to {
-                                opacity: 1;
-                                transform: translateY(0);
-                            }
-                        }
-                    </style>
-
-                    <script>
-                        let isLoading = false;
-
-                        function askQuestion() {
-                            if (isLoading) return;
-
-                            const question = document.getElementById("question").value;
-                            if (!question.trim()) return;
-
-                            isLoading = true;
-                            const responseDiv = document.getElementById("response");
-
-                            // Adiciona a mensagem do usuário
-                            const userMessage = document.createElement("div");
-                            userMessage.className = "flex justify-end mb-6 message-appear";
-                            userMessage.innerHTML = `
-            <div class="bg-gradient-to-r from-purple-700 to-blue-800 text-white rounded-xl px-6 py-3 max-w-[80%] shadow-md">
+        const userMessage = document.createElement("div");
+        userMessage.className = "flex justify-end mb-6 message-appear";
+        userMessage.innerHTML = `
+            <div class="bg-gradient-to-r from-blue-600 to-purple-700 text-white rounded-lg px-4 py-2 max-w-[70%] shadow-md">
                 ${question}
             </div>
         `;
-                            responseDiv.appendChild(userMessage);
+        responseDiv.appendChild(userMessage);
 
-                            // Adiciona o indicador de loading
-                            const loadingDiv = document.createElement("div");
-                            loadingDiv.className = "flex items-center space-x-3 mb-6 message-appear";
-                            loadingDiv.innerHTML = `
-            <div class="flex space-x-2 bg-gray-100 rounded-xl px-6 py-4">
-                <div class="w-3 h-3 bg-gradient-to-r from-purple-700 to-blue-800 rounded-full animate-bounce"></div>
-                <div class="w-3 h-3 bg-gradient-to-r from-purple-700 to-blue-800 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-                <div class="w-3 h-3 bg-gradient-to-r from-purple-700 to-blue-800 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+        const loadingDiv = document.createElement("div");
+        loadingDiv.className = "flex justify-start mb-6 message-appear";
+        loadingDiv.innerHTML = `
+            <div class="bg-gray-800/70 rounded-lg px-4 py-2 max-w-[70%] shadow-md flex items-center space-x-2">
+                <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                <div class="w-2 h-2 bg-purple-500 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+                <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
             </div>
         `;
-                            responseDiv.appendChild(loadingDiv);
+        responseDiv.appendChild(loadingDiv);
 
-                            // Scroll para o final
-                            const container = document.getElementById("chat-container");
-                            container.scrollTop = container.scrollHeight;
+        const container = document.getElementById("chat-container");
+        container.scrollTop = container.scrollHeight;
 
-                            axios.post('{{ route('chat_rag.ask') }}', {
-                                    query: question
-                                })
-                                .then(response => {
-                                    loadingDiv.remove();
-
-                                    const botMessage = document.createElement("div");
-                                    botMessage.className = "flex mb-6 message-appear";
-                                    botMessage.innerHTML = `
-                    <div class="bg-gray-100 rounded-xl px-6 py-3 max-w-[80%] shadow-md">
+        axios.post('{{ route('chat_rag.ask') }}', { query: question })
+            .then(response => {
+                loadingDiv.remove();
+                const botMessage = document.createElement("div");
+                botMessage.className = "flex justify-start mb-6 message-appear";
+                botMessage.innerHTML = `
+                    <div class="bg-gray-800/70 text-gray-200 rounded-lg px-4 py-2 max-w-[70%] shadow-md">
                         ${response.data.response}
                     </div>
                 `;
-                                    responseDiv.appendChild(botMessage);
-                                    container.scrollTop = container.scrollHeight;
-                                })
-                                .catch(error => {
-                                    loadingDiv.remove();
-                                    const errorMessage = document.createElement("div");
-                                    errorMessage.className = "flex mb-6 message-appear";
-                                    errorMessage.innerHTML = `
-                    <div class="bg-red-100 text-red-700 rounded-xl px-6 py-3 max-w-[80%] shadow-md">
+                responseDiv.appendChild(botMessage);
+                container.scrollTop = container.scrollHeight;
+            })
+            .catch(error => {
+                loadingDiv.remove();
+                const errorMessage = document.createElement("div");
+                errorMessage.className = "flex justify-start mb-6 message-appear";
+                errorMessage.innerHTML = `
+                    <div class="bg-red-900/50 text-red-300 rounded-lg px-4 py-2 max-w-[70%] shadow-md">
                         Erro ao buscar resposta.
                     </div>
                 `;
-                                    responseDiv.appendChild(errorMessage);
-                                    container.scrollTop = container.scrollHeight;
-                                })
-                                .finally(() => {
-                                    isLoading = false;
-                                    document.getElementById("question").value = "";
-                                });
-                        }
+                responseDiv.appendChild(errorMessage);
+                container.scrollTop = container.scrollHeight;
+            })
+            .finally(() => {
+                isLoading = false;
+                document.getElementById("question").value = "";
+            });
+    }
 
-                        // Listener para envio com Enter
-                        document.getElementById("question").addEventListener("keypress", function(event) {
-                            if (event.key === "Enter") {
-                                event.preventDefault();
-                                askQuestion();
-                            }
-                        });
+    document.getElementById("question").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            askQuestion();
+        }
+    });
 
-                        // Atualizar nome do arquivo selecionado
-                        document.getElementById("file-input").addEventListener("change", function(e) {
-                            const fileName = e.target.files[0]?.name;
-                            if (fileName) {
-                                const fileText = document.querySelector(".text-sm.text-gray-500");
-                                fileText.textContent = fileName;
-                            }
-                        });
+    document.getElementById("file-input").addEventListener("change", function(e) {
+        const fileName = e.target.files[0]?.name || "Selecione um arquivo";
+        document.getElementById("file-name").textContent = fileName;
+    });
 
-                        // Animação de upload
-                        document.getElementById("upload-form").addEventListener("submit", function() {
-                            const button = this.querySelector("button[type=submit]");
-                            button.innerHTML = `
+    document.getElementById("upload-form").addEventListener("submit", function() {
+        const button = this.querySelector("button[type=submit]");
+        button.innerHTML = `
             <div class="flex items-center justify-center">
-                <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+                <svg class="animate-spin h-4 w-4 mr-2" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
                 <span>Enviando...</span>
             </div>
         `;
-                            button.disabled = true;
-                        });
+        button.disabled = true;
+    });
+</script>
 
-                        // Adiciona efeito hover nas mensagens
-                        document.getElementById("chat-container").addEventListener("mouseover", function(e) {
-                            const message = e.target.closest(".message-appear");
-                            if (message) {
-                                message.style.transform = "scale(1.01)";
-                                message.style.transition = "transform 0.2s ease";
-                            }
-                        });
-
-                        document.getElementById("chat-container").addEventListener("mouseout", function(e) {
-                            const message = e.target.closest(".message-appear");
-                            if (message) {
-                                message.style.transform = "scale(1)";
-                            }
-                        });
-                    </script>
-
-                @endsection
+<style>
+    .star-field {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+        background: radial-gradient(circle, rgba(10, 14, 26, 1) 0%, rgba(0, 0, 0, 1) 100%);
+    }
+    .star {
+        position: absolute;
+        background: #fff;
+        border-radius: 50%;
+        animation: twinkle 5s infinite;
+    }
+    @keyframes twinkle {
+        0%, 100% { opacity: 0.2; }
+        50% { opacity: 1; }
+    }
+    .nebula {
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(147, 51, 234, 0.2) 0%, rgba(10, 14, 26, 0) 70%);
+        filter: blur(50px);
+        animation: drift 20s infinite linear;
+    }
+    @keyframes drift {
+        0% { transform: translate(0, 0); }
+        50% { transform: translate(100px, 50px); }
+        100% { transform: translate(0, 0); }
+    }
+    .glass-effect {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: linear-gradient(to bottom, #3b82f6, #9333ea);
+        border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(to bottom, #2563eb, #7e22ce);
+    }
+    .message-appear {
+        animation: messageAppear 0.3s ease-out forwards;
+    }
+    @keyframes messageAppear {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+@endsection

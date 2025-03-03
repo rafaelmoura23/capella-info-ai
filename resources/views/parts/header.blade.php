@@ -1,5 +1,5 @@
-<nav class="fixed top-0 w-full z-50 glass-effect py-6" data-aos="fade-down" data-aos-duration="800">
-    <div class="max-w-6xl mx-auto px-6">
+<nav class="top-0 w-full z-50 glass-effect py-6" data-aos="fade-down" data-aos-duration="800">
+    <div class="relative max-w-6xl mx-auto px-6">
         <div class="flex justify-between items-center">
             {{-- Logo Section --}}
             <div>

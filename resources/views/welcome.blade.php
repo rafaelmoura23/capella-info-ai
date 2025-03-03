@@ -110,35 +110,6 @@
             color: #3b82f6;
             font-weight: 600;
         }
-        .orbital-card {
-            position: relative;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(147, 51, 234, 0.3);
-            border-radius: 50%;
-            width: 180px;
-            height: 180px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
-            background: radial-gradient(circle, rgba(10, 14, 26, 0.8), rgba(0, 0, 0, 0.9));
-        }
-        .orbital-card:hover {
-            transform: scale(1.1);
-            border-color: rgba(59, 130, 246, 0.8);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-        }
-        .orbital-card::before {
-            content: '';
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border: 1px dashed rgba(147, 51, 234, 0.3);
-            border-radius: 50%;
-            animation: orbit 15s infinite linear;
-            z-index: -1;
-        }
         .chat-box {
             position: fixed;
             bottom: 20px;
@@ -202,7 +173,6 @@
             cursor: pointer;
             z-index: 1000;
         }
-        /* Estilo para a seção acadêmica */
         .academic-card {
             position: relative;
             padding: 20px;
@@ -228,6 +198,42 @@
         }
         .academic-card:hover::after {
             background: #9333ea;
+        }
+        .carousel-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .carousel-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        .about-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .about-galaxy {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.2), rgba(147, 51, 234, 0) 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: galaxy-spin 20s infinite linear;
+            z-index: -1;
+        }
+        @keyframes galaxy-spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        .about-text {
+            animation: text-glow 2s infinite alternate;
+        }
+        @keyframes text-glow {
+            0% { text-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+            100% { text-shadow: 0 0 15px rgba(147, 51, 234, 0.8); }
         }
     </style>
 </head>
@@ -403,7 +409,7 @@
         <div class="section-connector" style="height: 200px; top: 100%; left: 50%; transform: translateX(-50%);"></div>
     </section>
 
-    <!-- Nova Seção: Fundamentos do Cosmos da IA -->
+    <!-- Seção: Fundamentos do Cosmos da IA -->
     <section class="py-20 px-6 relative" id="ai-fundamentals">
         <div class="max-w-6xl mx-auto">
             <h2 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-12 text-center" style="font-family: 'Orbitron', sans-serif;" data-aos="fade-up">
@@ -431,52 +437,79 @@
         <div class="section-connector" style="height: 200px; top: 100%; left: 50%; transform: translateX(-50%);"></div>
     </section>
 
-    <!-- Nova Seção: Projetos Estelares -->
-    <section class="py-20 px-6 relative" id="projects">
+    <!-- Seção: Projetos Estelares (Carrossel Interativo com Imagens) -->
+    <section class="py-20 px-6 relative" id="projects" x-data="{ current: 0, projects: [
+        { title: 'Explorador de Dados', desc: 'Visualização interativa de dados com IA e Python.', tags: ['IA', 'Python', 'Dados'], color: 'blue-400', img: 'https://cdn.pixabay.com/photo/2018/07/14/11/33/earth-3537401_1280.jpg', github: 'https://github.com/seu-github/explorador-de-dados' },
+        { title: 'Chatbot Cósmico', desc: 'IA conversacional com tema astronômico.', tags: ['IA', 'NLP', 'Chat'], color: 'purple-400', img: 'https://cdn.pixabay.com/photo/2020/08/14/17/13/light-bulbs-5488573_1280.jpg', github: 'https://github.com/seu-github/chatbot-cosmico' },
+        { title: 'Visão Estelar', desc: 'Deep Learning para classificar imagens astronômicas.', tags: ['Deep Learning', 'Visão', 'IA'], color: 'yellow-400', img: 'https://cdn.pixabay.com/photo/2016/10/11/21/43/geometric-1732847_1280.jpg', github: 'https://github.com/seu-github/visao-estelar' },
+        { title: 'Fluxo Automático', desc: 'Automação de pipelines de dados em tempo real.', tags: ['Automação', 'Dados', 'Pipeline'], color: 'red-400', img: 'https://cdn.pixabay.com/photo/2020/02/03/00/12/fiber-4814456_1280.jpg', github: 'https://github.com/seu-github/fluxo-automatico' }
+    ]}">
         <div class="max-w-6xl mx-auto text-center">
             <h2 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-12" style="font-family: 'Orbitron', sans-serif;" data-aos="fade-up">
                 Projetos Estelares
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="orbital-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div>
-                        <h3 class="text-xl font-semibold text-blue-400 mb-2">Explorador de Dados</h3>
-                        <p class="text-gray-300 text-sm">Uma ferramenta para visualizar constelações de dados com Python e IA.</p>
+            <div class="relative">
+                <!-- Carrossel -->
+                <div class="overflow-hidden">
+                    <div class="flex transition-transform duration-500" :style="'transform: translateX(-' + (current * 33.33) + '%)'">
+                        <template x-for="(project, index) in projects" :key="index">
+                            <div class="carousel-card glass-effect p-4 rounded-xl mx-2 w-1/3 flex-shrink-0" data-aos="fade-up" :data-aos-delay="index * 100">
+                                <img :src="project.img" alt="Project Image" class="w-full h-32 object-cover rounded-t-lg">
+                                <div class="p-4">
+                                    <h3 class="text-lg font-semibold" :class="'text-' + project.color" x-text="project.title"></h3>
+                                    <p class="text-sm text-gray-300 mt-1" x-text="project.desc"></p>
+                                    <div class="flex flex-wrap gap-2 mt-2">
+                                        <template x-for="tag in project.tags" :key="tag">
+                                            <span class="text-xs text-gray-400 bg-gray-800/50 px-2 py-1 rounded-full" x-text="tag"></span>
+                                        </template>
+                                    </div>
+                                    <a :href="project.github" target="_blank" class="inline-block mt-3 text-gray-400 hover:text-purple-400 transition-colors">
+                                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </template>
                     </div>
                 </div>
-                <div class="orbital-card" data-aos="zoom-in" data-aos-delay="200">
-                    <div>
-                        <h3 class="text-xl font-semibold text-purple-400 mb-2">Chatbot Cósmico</h3>
-                        <p class="text-gray-300 text-sm">Um protótipo de IA conversacional inspirado no universo.</p>
-                    </div>
-                </div>
-                <div class="orbital-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div>
-                        <h3 class="text-xl font-semibold text-yellow-400 mb-2">Visão Estelar</h3>
-                        <p class="text-gray-300 text-sm">Modelo de Deep Learning para classificar imagens astronômicas.</p>
-                    </div>
-                </div>
+                <!-- Controles -->
+                <button @click="current = (current - 1 + projects.length) % projects.length" class="absolute left-0 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-400 transition-colors">
+                    <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <button @click="current = (current + 1) % projects.length" class="absolute right-0 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-400 transition-colors">
+                    <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
             </div>
         </div>
         <div class="section-connector" style="height: 200px; top: 100%; left: 50%; transform: translateX(-50%);"></div>
     </section>
 
-    <!-- Seção: Sobre Mim -->
-    <section class="py-20 px-6 relative" id="about">
-        <div class="max-w-6xl mx-auto text-center">
-            <h2 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-12" style="font-family: 'Orbitron', sans-serif;" data-aos="fade-up">
+    <!-- Seção: Sobre o Criador (Design Surpreendente) -->
+    <section class="py-28 px-6 relative" id="about">
+        <div class="max-w-4xl mx-auto text-center about-container">
+            <div class="about-galaxy"></div>
+            <h2 class="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-6 about-text" style="font-family: 'Orbitron', sans-serif;" data-aos="zoom-in" data-aos-duration="1000">
                 Sobre o Criador
             </h2>
-            <div class="glass-effect p-8 rounded-xl max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
-                <p class="text-gray-300 mb-6">
-                    Eu sou um estudante de Ciência de Dados, fascinado pelo universo e suas infinitas possibilidades. Minha jornada é guiada pela curiosidade cósmica e pela paixão por IA, onde mergulho nos fundamentos de Machine Learning e Deep Learning. Busco conectar dados, tecnologia e um toque de criatividade para explorar o desconhecido e construir soluções que iluminem o futuro.
+            <div class="glass-effect p-8 rounded-xl shadow-2xl relative z-10" data-aos="fade-up" data-aos-delay="200">
+                <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                    Um estudante de Ciência de Dados navegando pelo cosmos da tecnologia, com paixão por IA, Machine Learning e Deep Learning. Meu objetivo? Iluminar o desconhecido com soluções estelares.
                 </p>
-                <div class="flex justify-center space-x-6">
-                    <a href="https://linkedin.com/in/seu-linkedin" target="_blank" class="orbital-card" data-aos="zoom-in" data-aos-delay="300">
-                        <span class="text-blue-400 font-semibold">LinkedIn</span>
+                <div class="flex justify-center space-x-8">
+                    <a href="https://linkedin.com/in/seu-linkedin" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors transform hover:scale-110" data-aos="zoom-in" data-aos-delay="300">
+                        <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.784-1.75-1.732s.784-1.732 1.75-1.732 1.75.784 1.75 1.732-.784 1.732-1.75 1.732zm13.5 12.268h-3v-5.604c0-1.337-.027-3.063-1.866-3.063-1.867 0-2.153 1.459-2.153 2.966v5.701h-3v-11h2.878v1.497h.041c.4-.755 1.378-1.551 2.836-1.551 3.03 0 3.584 1.995 3.584 4.589v6.465z"/>
+                        </svg>
                     </a>
-                    <a href="https://github.com/seu-github" target="_blank" class="orbital-card" data-aos="zoom-in" data-aos-delay="400">
-                        <span class="text-purple-400 font-semibold">GitHub</span>
+                    <a href="https://github.com/seu-github" target="_blank" class="text-gray-400 hover:text-purple-400 transition-colors transform hover:scale-110" data-aos="zoom-in" data-aos-delay="400">
+                        <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                        </svg>
                     </a>
                 </div>
             </div>
